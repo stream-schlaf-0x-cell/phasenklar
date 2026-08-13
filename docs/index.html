@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Projektionsfreundliche Anzeige für Sozialform, Lautstärke, Zeit, Ergebnis und den nächsten Schritt." />
+    <meta name="theme-color" content="#f4f1e8" />
+    <title>Phasenklar – Arbeitsphasen eindeutig anzeigen</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell stage-5" id="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div>
+            <p class="brand">PHASENKLAR</p>
+            <p class="brand-subline">Was jetzt gilt</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="quiet-button attention-button" id="attention-open" type="button"><span aria-hidden="true">●</span> Stopp</button>
+          <button class="quiet-button" id="settings-open" type="button"><span aria-hidden="true">✎</span> Bearbeiten</button>
+          <button class="icon-button" id="fullscreen" type="button" aria-label="Vollbild ein- oder ausschalten" title="Vollbild"><span aria-hidden="true">⛶</span></button>
+        </div>
+      </header>
+
+      <section class="board" aria-label="Aktuelle Arbeitsphase">
+        <article class="phase-card social-card" data-card="1">
+          <div class="card-heading"><span class="card-number" aria-hidden="true">1</span><span>Sozialform</span></div>
+          <div class="card-content">
+            <span class="social-symbol" id="social-symbol" aria-hidden="true">4</span>
+            <h1 id="social-value">Gruppenarbeit</h1>
+            <p id="social-note">Die Tische bleiben stehen</p>
+          </div>
+        </article>
+
+        <article class="phase-card volume-card volume-2" id="volume-card" data-card="2">
+          <div class="card-heading"><span class="card-number" aria-hidden="true">2</span><span>Lautstärke</span></div>
+          <div class="card-content">
+            <span class="volume-level" id="volume-level">2</span>
+            <div><h1 id="volume-title">Gruppentisch</h1><p id="volume-note">Nur die eigene Gruppe hört euch</p></div>
+          </div>
+        </article>
+
+        <article class="phase-card timer-card" id="timer-card" data-card="3">
+          <div class="card-heading"><span class="card-number" aria-hidden="true">3</span><span>Zeit</span></div>
+          <div class="timer-main">
+            <p class="timer-display" id="timer-display" aria-live="polite">12:00</p>
+            <p class="timer-status" id="timer-status">bereit</p>
+          </div>
+          <div class="timer-progress" aria-hidden="true"><span id="timer-progress"></span></div>
+          <div class="timer-controls">
+            <button class="primary-timer" id="timer-toggle" type="button">Start</button>
+            <button id="timer-add" type="button">+ 1 Min</button>
+            <button id="timer-reset" type="button">Neu</button>
+          </div>
+        </article>
+
+        <article class="phase-card result-card" data-card="4">
+          <div class="card-heading"><span class="card-number" aria-hidden="true">4</span><span>Ergebnis</span></div>
+          <div class="statement-content">
+            <span class="statement-kicker">Am Ende liegt vor:</span>
+            <h1 id="result-value">3 begründete Thesen</h1>
+            <p>Alle müssen das Ergebnis erklären können.</p>
+          </div>
+        </article>
+
+        <article class="phase-card next-card" data-card="5">
+          <div class="card-heading"><span class="card-number" aria-hidden="true">5</span><span>Danach</span></div>
+          <div class="statement-content">
+            <span class="arrow-symbol" aria-hidden="true">→</span>
+            <h1 id="next-value">Material zurück · Blick nach vorn</h1>
+            <p>Erst abschließen, dann wechseln.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="attention-overlay" id="attention-overlay" role="dialog" aria-modal="true" aria-labelledby="attention-title" hidden>
+        <button class="attention-close" id="attention-close" type="button" aria-label="Stoppsignal schließen">×</button>
+        <p class="attention-eyebrow">STOPP</p>
+        <div class="attention-zero" aria-hidden="true">0</div>
+        <h1 id="attention-title">Lautstärke 0</h1>
+        <p>Hände leer · Blick nach vorn</p>
+        <span class="attention-hint">Zum Schließen S oder Escape drücken</span>
+      </section>
+
+      <div class="panel-backdrop" id="panel-backdrop" hidden>
+        <section class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+          <div class="panel-header">
+            <div><p class="panel-eyebrow">Phase vorbereiten</p><h1 id="settings-title">Was soll jetzt gelten?</h1></div>
+            <button class="panel-close" id="settings-close" type="button" aria-label="Bearbeiten schließen">×</button>
+          </div>
+
+          <div class="settings-grid">
+            <fieldset class="setting-section stage-section">
+              <legend>Nach und nach einführen</legend>
+              <p class="setting-help">Zeige zunächst nur wenige Erwartungen. Ergänze die nächste Karte, sobald die vorherigen Begriffe sitzen.</p>
+              <div class="stage-options" id="stage-options">
+                <button type="button" data-stage="2"><strong>Start</strong><span>Sozialform + Lautstärke</span></button>
+                <button type="button" data-stage="3"><strong>+ Zeit</strong><span>Arbeitsrahmen ergänzen</span></button>
+                <button type="button" data-stage="4"><strong>+ Ergebnis</strong><span>Ziel sichtbar machen</span></button>
+                <button type="button" data-stage="5" class="selected"><strong>Alle 5</strong><span>Vollständige Routine</span></button>
+              </div>
+            </fieldset>
+
+            <label class="setting-section">
+              <span class="setting-label"><b>1</b> Sozialform</span>
+              <select id="social-input">
+                <option>Einzelarbeit</option>
+                <option>Partnerarbeit</option>
+                <option selected>Gruppenarbeit</option>
+                <option>Freiarbeit / SOL</option>
+                <option>Plenum</option>
+              </select>
+            </label>
+
+            <fieldset class="setting-section">
+              <legend><b>2</b> Lautstärke</legend>
+              <div class="volume-options" id="volume-options">
+                <button type="button" data-volume="0"><span>0</span><strong>Ruhe</strong></button>
+                <button type="button" data-volume="1"><span>1</span><strong>Flüstern</strong></button>
+                <button type="button" data-volume="2" class="selected"><span>2</span><strong>Gruppentisch</strong></button>
+                <button type="button" data-volume="3"><span>3</span><strong>Präsentation</strong></button>
+              </div>
+            </fieldset>
+
+            <fieldset class="setting-section time-setting">
+              <legend><b>3</b> Zeit</legend>
+              <div class="minute-presets" id="minute-presets">
+                <button type="button" data-minutes="5">5 Min</button>
+                <button type="button" data-minutes="10">10 Min</button>
+                <button type="button" data-minutes="12" class="selected">12 Min</button>
+                <button type="button" data-minutes="15">15 Min</button>
+                <button type="button" data-minutes="20">20 Min</button>
+                <button type="button" data-minutes="30">30 Min</button>
+              </div>
+              <label class="custom-minutes">Eigene Zeit <input id="minutes-input" type="number" min="1" max="120" value="12" /> Min</label>
+            </fieldset>
+
+            <label class="setting-section text-setting">
+              <span class="setting-label"><b>4</b> Ergebnis</span>
+              <textarea id="result-input" maxlength="90" rows="2" placeholder="z. B. 3 begründete Thesen">3 begründete Thesen</textarea>
+              <span class="character-count" id="result-count">20/90</span>
+            </label>
+
+            <label class="setting-section text-setting">
+              <span class="setting-label"><b>5</b> Danach</span>
+              <textarea id="next-input" maxlength="90" rows="2" placeholder="z. B. Material zurück · Blick nach vorn">Material zurück · Blick nach vorn</textarea>
+              <span class="character-count" id="next-count">36/90</span>
+            </label>
+          </div>
+
+          <div class="panel-footer">
+            <p>Die Angaben bleiben ausschließlich in diesem Browser gespeichert.</p>
+            <button class="apply-button" id="settings-apply" type="button">Anzeige übernehmen</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

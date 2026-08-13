@@ -1,5 +1,7 @@
 # Phasenklar
 
+**[Web-App direkt öffnen](https://stream-schlaf-0x-cell.github.io/phasenklar/)**
+
 Phasenklar ist eine kleine, projektionsfreundliche Web-App für klar angekündigte Arbeitsphasen im Unterricht. Sie zeigt fünf Erwartungen auf einen Blick:
 
 1. Sozialform
