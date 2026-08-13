@@ -245,18 +245,20 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #aa3b28;
-  color: white;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(227, 105, 75, .14), transparent 34rem),
+    #f5f0e8;
+  color: var(--ink);
   cursor: pointer;
   text-align: center;
   padding: 30px;
 }
-.attention-close { position: absolute; top: 25px; right: 30px; border: 0; background: transparent; color: white; font-size: 48px; cursor: pointer; }
-.attention-eyebrow { margin: 0 0 10px; font-size: clamp(22px, 2vw, 34px); font-weight: 900; letter-spacing: .22em; }
-.attention-zero { display: grid; place-items: center; width: clamp(140px, 15vw, 230px); height: clamp(140px, 15vw, 230px); border-radius: 50%; background: white; color: #aa3b28; font-size: clamp(90px, 11vw, 170px); font-weight: 950; line-height: 1; }
+.attention-close { position: absolute; top: 25px; right: 30px; border: 0; background: transparent; color: var(--ink); font-size: 48px; cursor: pointer; }
+.attention-eyebrow { margin: 0 0 14px; padding: 8px 14px 8px 20px; border-radius: 999px; background: #f0d6cf; color: #9f3d2a; font-size: clamp(18px, 1.7vw, 28px); font-weight: 900; letter-spacing: .22em; }
+.attention-zero { display: grid; place-items: center; width: clamp(140px, 15vw, 230px); height: clamp(140px, 15vw, 230px); border-radius: 50%; background: #b84b34; color: white; box-shadow: 0 18px 60px rgba(156, 57, 38, .23); font-size: clamp(90px, 11vw, 170px); font-weight: 950; line-height: 1; }
 .attention-overlay h2 { margin: 22px 0 4px; font-size: clamp(48px, 7vw, 112px); letter-spacing: -.05em; line-height: .95; }
-.attention-overlay > p:not(.attention-eyebrow) { margin: 12px 0; font-size: clamp(25px, 3vw, 50px); }
-.attention-hint { position: absolute; bottom: 26px; opacity: .68; font-size: 13px; }
+.attention-overlay > p:not(.attention-eyebrow) { margin: 12px 0; color: var(--green-dark); font-size: clamp(25px, 3vw, 50px); }
+.attention-hint { position: absolute; bottom: 26px; color: var(--muted); font-size: 13px; }
 
 .panel-backdrop {
   position: fixed;

@@ -105,7 +105,7 @@
               </div>
             </fieldset>
 
-            <label class="setting-section">
+            <label class="setting-section" data-setting="1">
               <span class="setting-label"><b>1</b> Sozialform</span>
               <select id="social-input">
                 <option>Einzelarbeit</option>
@@ -116,7 +116,7 @@
               </select>
             </label>
 
-            <fieldset class="setting-section">
+            <fieldset class="setting-section" data-setting="2">
               <legend><b>2</b> Lautstärke</legend>
               <div class="volume-options" id="volume-options">
                 <button type="button" data-volume="0"><span>0</span><strong>Ruhe</strong></button>
@@ -126,7 +126,7 @@
               </div>
             </fieldset>
 
-            <fieldset class="setting-section time-setting">
+            <fieldset class="setting-section time-setting" data-setting="3">
               <legend><b>3</b> Zeit</legend>
               <div class="minute-presets" id="minute-presets">
                 <button type="button" data-minutes="5">5 Min</button>
@@ -139,13 +139,13 @@
               <label class="custom-minutes">Eigene Zeit <input id="minutes-input" type="number" min="1" max="120" value="12" /> Min</label>
             </fieldset>
 
-            <label class="setting-section text-setting">
+            <label class="setting-section text-setting" data-setting="4">
               <span class="setting-label"><b>4</b> Ergebnis</span>
               <textarea id="result-input" maxlength="90" rows="2" placeholder="z. B. 3 begründete Thesen">3 begründete Thesen</textarea>
               <span class="character-count" id="result-count">20/90</span>
             </label>
 
-            <label class="setting-section text-setting">
+            <label class="setting-section text-setting" data-setting="5">
               <span class="setting-label"><b>5</b> Danach</span>
               <textarea id="next-input" maxlength="90" rows="2" placeholder="z. B. Material zurück · Blick nach vorn">Material zurück · Blick nach vorn</textarea>
               <span class="character-count" id="next-count">36/90</span>

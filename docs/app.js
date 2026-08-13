@@ -137,6 +137,12 @@
     });
   }
 
+  function renderSettingsStage() {
+    document.querySelectorAll("[data-setting]").forEach((section) => {
+      section.hidden = Number(section.dataset.setting) > draft.visibleCount;
+    });
+  }
+
   function updateCounts() {
     byId("result-count").textContent = `${byId("result-input").value.length}/90`;
     byId("next-count").textContent = `${byId("next-input").value.length}/90`;
@@ -151,6 +157,7 @@
     setSelected(byId("stage-options"), "stage", draft.visibleCount);
     setSelected(byId("volume-options"), "volume", draft.volume);
     setSelected(byId("minute-presets"), "minutes", draft.minutes);
+    renderSettingsStage();
     updateCounts();
     panel.hidden = false;
     if (!firstVisit) byId("social-input").focus();
@@ -195,6 +202,7 @@
     if (!button) return;
     draft.visibleCount = Number(button.dataset.stage);
     setSelected(byId("stage-options"), "stage", draft.visibleCount);
+    renderSettingsStage();
   });
 
   byId("volume-options").addEventListener("click", (event) => {

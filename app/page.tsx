@@ -304,27 +304,33 @@ export default function Home() {
                 </div>
               </fieldset>
 
-              <fieldset className="setting-section time-setting">
-                <legend><b>3</b> Zeit</legend>
-                <div className="minute-presets">
-                  {[5, 10, 12, 15, 20, 30].map((minutes) => (
-                    <button key={minutes} className={draft.minutes === minutes ? "selected" : ""} onClick={() => setDraft({ ...draft, minutes })}>{minutes} Min</button>
-                  ))}
-                </div>
-                <label className="custom-minutes">Eigene Zeit <input type="number" min="1" max="120" value={draft.minutes} onChange={(event) => setDraft({ ...draft, minutes: Number(event.target.value) })} /> Min</label>
-              </fieldset>
+              {draft.visibleCount >= 3 && (
+                <fieldset className="setting-section time-setting">
+                  <legend><b>3</b> Zeit</legend>
+                  <div className="minute-presets">
+                    {[5, 10, 12, 15, 20, 30].map((minutes) => (
+                      <button key={minutes} className={draft.minutes === minutes ? "selected" : ""} onClick={() => setDraft({ ...draft, minutes })}>{minutes} Min</button>
+                    ))}
+                  </div>
+                  <label className="custom-minutes">Eigene Zeit <input type="number" min="1" max="120" value={draft.minutes} onChange={(event) => setDraft({ ...draft, minutes: Number(event.target.value) })} /> Min</label>
+                </fieldset>
+              )}
 
-              <label className="setting-section text-setting">
-                <span className="setting-label"><b>4</b> Ergebnis</span>
-                <textarea maxLength={90} rows={2} value={draft.result} onChange={(event) => setDraft({ ...draft, result: event.target.value })} placeholder="z. B. 3 begründete Thesen" />
-                <span className="character-count">{draft.result.length}/90</span>
-              </label>
+              {draft.visibleCount >= 4 && (
+                <label className="setting-section text-setting">
+                  <span className="setting-label"><b>4</b> Ergebnis</span>
+                  <textarea maxLength={90} rows={2} value={draft.result} onChange={(event) => setDraft({ ...draft, result: event.target.value })} placeholder="z. B. 3 begründete Thesen" />
+                  <span className="character-count">{draft.result.length}/90</span>
+                </label>
+              )}
 
-              <label className="setting-section text-setting">
-                <span className="setting-label"><b>5</b> Danach</span>
-                <textarea maxLength={90} rows={2} value={draft.next} onChange={(event) => setDraft({ ...draft, next: event.target.value })} placeholder="z. B. Material zurück · Blick nach vorn" />
-                <span className="character-count">{draft.next.length}/90</span>
-              </label>
+              {draft.visibleCount >= 5 && (
+                <label className="setting-section text-setting">
+                  <span className="setting-label"><b>5</b> Danach</span>
+                  <textarea maxLength={90} rows={2} value={draft.next} onChange={(event) => setDraft({ ...draft, next: event.target.value })} placeholder="z. B. Material zurück · Blick nach vorn" />
+                  <span className="character-count">{draft.next.length}/90</span>
+                </label>
+              )}
             </div>
 
             <div className="panel-footer">
