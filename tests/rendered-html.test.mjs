@@ -32,6 +32,8 @@ test("renders the Phasenklar classroom board", async () => {
   assert.match(source, /const TIMER_KEY = "phasenklar-timer-v1"/);
   assert.match(source, /const HISTORY_KEY = "phasenklar-history-v1"/);
   assert.match(source, /GROUP_SIZES = \[3, 4, 5, 6\]/);
+  assert.match(source, /function VolumeMeter/);
+  assert.match(source, /\[3, 2, 1, 0\]\.map/);
   assert.match(source, /navigator\.serviceWorker\.register/);
   assert.match(source, /pauseTimer\(\);\s*setAttention\(true\)/s);
   assert.match(source, /Die vier Lautstärken/);

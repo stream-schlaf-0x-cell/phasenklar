@@ -93,6 +93,22 @@ function CardNumber({ number }: { number: number }) {
   return <span className="card-number" aria-hidden="true">{number}</span>;
 }
 
+function VolumeMeter({ level }: { level: number }) {
+  return (
+    <span className="volume-meter" aria-hidden="true">
+      <span className="volume-meter-bars">
+        {[3, 2, 1, 0].map((segment) => (
+          <span
+            key={segment}
+            className={`volume-meter-segment segment-${segment} ${level >= segment ? "active" : ""}`}
+          />
+        ))}
+      </span>
+      <span className="volume-meter-value">Stufe <b>{level}</b></span>
+    </span>
+  );
+}
+
 export default function Home() {
   const [settings, setSettings] = useState<BoardSettings>(DEFAULTS);
   const [draft, setDraft] = useState<BoardSettings>(DEFAULTS);
@@ -359,7 +375,7 @@ export default function Home() {
           >
             <div className="card-heading"><CardNumber number={2} /><span>Lautstärke</span></div>
             <div className="card-content">
-              <span className="volume-level">{volume.level}</span>
+              <VolumeMeter level={volume.level} />
               <div><h2>{volume.title}</h2><p>{volume.note}</p></div>
             </div>
           </button>

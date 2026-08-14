@@ -144,6 +144,9 @@
     byId("volume-note").textContent = volume.note;
     byId("volume-card").className = `phase-card volume-card volume-card-button volume-${state.volume}`;
     byId("volume-card").setAttribute("aria-label", `Lautstärke ${state.volume}: ${volume.title}. Alle Lautstärken anzeigen`);
+    document.querySelectorAll("#volume-meter [data-meter-level]").forEach((segment) => {
+      segment.classList.toggle("active", state.volume >= Number(segment.dataset.meterLevel));
+    });
 
     document.querySelectorAll("[data-guide-volume]").forEach((item) => {
       item.classList.toggle("current", Number(item.dataset.guideVolume) === state.volume);

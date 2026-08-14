@@ -178,18 +178,52 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .volume-card .card-number { background: white; color: var(--green-dark); }
 .volume-card .card-content { flex-direction: row; align-items: center; justify-content: flex-start; gap: clamp(16px, 2vw, 30px); }
 .volume-card .card-content p { color: rgba(255,255,255,.72); }
-.volume-level {
+.volume-meter {
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: clamp(82px, 7vw, 120px);
-  height: clamp(82px, 7vw, 120px);
-  border-radius: 50%;
-  background: white;
-  color: var(--green-dark);
-  font-size: clamp(48px, 5.5vw, 88px);
-  font-weight: 950;
-  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: clamp(76px, 6.2vw, 108px);
+}
+.volume-meter-bars {
+  width: 100%;
+  height: clamp(104px, 8.3vw, 142px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.volume-meter-segment {
+  flex: 1;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 8px;
+  background: rgba(255,255,255,.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.volume-meter-segment.active { border-color: rgba(255,255,255,.25); box-shadow: 0 4px 12px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.2); }
+.volume-meter-segment.segment-0.active { background: #d5e2de; }
+.volume-meter-segment.segment-1.active { background: #55d88e; }
+.volume-meter-segment.segment-2.active { background: #e8dc58; }
+.volume-meter-segment.segment-3.active { background: #ef6552; }
+.volume-meter-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.13);
+  color: rgba(255,255,255,.72);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.volume-meter-value b {
+  color: white;
+  font-size: 17px;
+  letter-spacing: 0;
 }
 .volume-0 { background: #39433f; }
 .volume-1 { background: #295d55; }
@@ -240,7 +274,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .stage-2 .board { grid-template-rows: 1fr; }
 .stage-2 .social-card, .stage-2 .volume-card { grid-column: span 6; }
 .stage-2 .card-content h2 { font-size: clamp(42px, 5vw, 82px); }
-.stage-2 .volume-level { width: clamp(110px, 11vw, 180px); height: clamp(110px, 11vw, 180px); font-size: clamp(68px, 8vw, 130px); }
+.stage-2 .volume-meter { width: clamp(116px, 10vw, 168px); }
+.stage-2 .volume-meter-bars { height: clamp(152px, 14vw, 218px); gap: 8px; }
+.stage-2 .volume-meter-value { padding: 7px 12px; font-size: 12px; }
+.stage-2 .volume-meter-value b { font-size: 21px; }
 
 .stage-3 .board { grid-template-rows: 1fr; }
 .stage-3 .social-card, .stage-3 .volume-card, .stage-3 .timer-card { grid-column: span 4; }

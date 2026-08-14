@@ -42,7 +42,15 @@
         <button class="phase-card volume-card volume-card-button volume-2" id="volume-card" data-card="2" type="button" aria-label="Lautstärke 2: Gruppentisch. Alle Lautstärken anzeigen">
           <div class="card-heading"><span class="card-number" aria-hidden="true">2</span><span>Lautstärke</span></div>
           <div class="card-content">
-            <span class="volume-level" id="volume-level">2</span>
+            <span class="volume-meter" id="volume-meter" aria-hidden="true">
+              <span class="volume-meter-bars">
+                <span class="volume-meter-segment segment-3" data-meter-level="3"></span>
+                <span class="volume-meter-segment segment-2 active" data-meter-level="2"></span>
+                <span class="volume-meter-segment segment-1 active" data-meter-level="1"></span>
+                <span class="volume-meter-segment segment-0 active" data-meter-level="0"></span>
+              </span>
+              <span class="volume-meter-value">Stufe <b id="volume-level">2</b></span>
+            </span>
             <div><h1 id="volume-title">Gruppentisch</h1><p id="volume-note">Nur die eigene Gruppe hört euch</p></div>
           </div>
         </button>

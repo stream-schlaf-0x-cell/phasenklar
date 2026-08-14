@@ -22,6 +22,9 @@ test("GitHub Pages contains the complete standalone app", async () => {
   assert.match(html, /id="settings-open"/);
   assert.match(html, /id="attention-overlay"/);
   assert.match(html, /id="volume-guide-overlay"/);
+  assert.match(html, /id="volume-meter"/);
+  assert.match(html, /data-meter-level="0"/);
+  assert.match(html, /data-meter-level="3"/);
   assert.match(html, /id="history-section"/);
   assert.match(html, /id="group-size-options"/);
   assert.match(html, /rel="manifest"/);
@@ -33,12 +36,15 @@ test("GitHub Pages contains the complete standalone app", async () => {
   assert.match(css, /background:\s*radial-gradient\(circle at 50% 42%/);
   assert.match(css, /\.timer-warning:not\(\.timer-finished\)/);
   assert.match(css, /\.volume-guide-grid/);
+  assert.match(css, /\.volume-meter-segment\.segment-0\.active/);
+  assert.match(css, /\.volume-meter-segment\.segment-3\.active/);
   assert.match(css, /\.history-options/);
   assert.doesNotMatch(css, /\.attention-overlay\s*\{[^}]*background:\s*#aa3b28/s);
   assert.match(script, /window\.localStorage/);
   assert.match(script, /const TIMER_KEY = "phasenklar-timer-v1"/);
   assert.match(script, /const HISTORY_KEY = "phasenklar-history-v1"/);
   assert.match(script, /GROUP_SIZES = \[3, 4, 5, 6\]/);
+  assert.match(script, /state\.volume >= Number\(segment\.dataset\.meterLevel\)/);
   assert.match(script, /slice\(0, 5\)/);
   assert.match(script, /function showAttention\(\)\s*\{\s*if \(running\) stopTimer\(\)/s);
   assert.match(script, /navigator\.serviceWorker\.register\("\.\/sw\.js"\)/);
