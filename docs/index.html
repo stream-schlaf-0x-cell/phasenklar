@@ -6,6 +6,9 @@
     <meta name="description" content="Projektionsfreundliche Anzeige für Sozialform, Lautstärke, Zeit, Ergebnis und den nächsten Schritt." />
     <meta name="theme-color" content="#f4f1e8" />
     <title>Phasenklar – Arbeitsphasen eindeutig anzeigen</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
@@ -36,13 +39,13 @@
           </div>
         </article>
 
-        <article class="phase-card volume-card volume-2" id="volume-card" data-card="2">
+        <button class="phase-card volume-card volume-card-button volume-2" id="volume-card" data-card="2" type="button" aria-label="Lautstärke 2: Gruppentisch. Alle Lautstärken anzeigen">
           <div class="card-heading"><span class="card-number" aria-hidden="true">2</span><span>Lautstärke</span></div>
           <div class="card-content">
             <span class="volume-level" id="volume-level">2</span>
             <div><h1 id="volume-title">Gruppentisch</h1><p id="volume-note">Nur die eigene Gruppe hört euch</p></div>
           </div>
-        </article>
+        </button>
 
         <article class="phase-card timer-card" id="timer-card" data-card="3">
           <div class="card-heading"><span class="card-number" aria-hidden="true">3</span><span>Zeit</span></div>
@@ -83,7 +86,23 @@
         <div class="attention-zero" aria-hidden="true">0</div>
         <h1 id="attention-title">Lautstärke 0</h1>
         <p>Hände leer · Blick nach vorn</p>
-        <span class="attention-hint">Zum Schließen S oder Escape drücken</span>
+        <span class="attention-hint">Zum Schließen S oder Escape drücken · Timer bleibt pausiert</span>
+      </section>
+
+      <section class="volume-guide-overlay" id="volume-guide-overlay" role="dialog" aria-modal="true" aria-labelledby="volume-guide-title" hidden>
+        <div class="volume-guide-panel">
+          <button class="guide-close" id="volume-guide-close" type="button" aria-label="Lautstärkeübersicht schließen">×</button>
+          <p class="panel-eyebrow">Gemeinsame Sprache</p>
+          <h1 id="volume-guide-title">Die vier Lautstärken</h1>
+          <p class="volume-guide-intro">Die Zahl zeigt, wer euch hören darf.</p>
+          <div class="volume-guide-grid" id="volume-guide-grid">
+            <article data-guide-volume="0"><span>0</span><div><h2>Ruhe</h2><p>Niemand spricht</p></div></article>
+            <article data-guide-volume="1"><span>1</span><div><h2>Flüstern</h2><p>Nur die Person neben dir hört dich</p></div></article>
+            <article data-guide-volume="2"><span>2</span><div><h2>Gruppentisch</h2><p>Nur die eigene Gruppe hört euch</p></div></article>
+            <article data-guide-volume="3"><span>3</span><div><h2>Präsentation</h2><p>Der ganze Raum hört zu</p></div></article>
+          </div>
+          <button class="guide-done" id="volume-guide-done" type="button">Verstanden</button>
+        </div>
       </section>
 
       <div class="panel-backdrop" id="panel-backdrop" hidden>
@@ -105,16 +124,33 @@
               </div>
             </fieldset>
 
-            <label class="setting-section" data-setting="1">
-              <span class="setting-label"><b>1</b> Sozialform</span>
-              <select id="social-input">
-                <option>Einzelarbeit</option>
-                <option>Partnerarbeit</option>
-                <option selected>Gruppenarbeit</option>
-                <option>Freiarbeit / SOL</option>
-                <option>Plenum</option>
-              </select>
-            </label>
+            <section class="setting-section history-section" id="history-section" aria-labelledby="history-title" hidden>
+              <div class="history-heading"><h2 id="history-title">Zuletzt verwendet</h2><span>bis zu 5</span></div>
+              <div class="history-options" id="history-options"></div>
+            </section>
+
+            <div class="setting-section social-setting" data-setting="1">
+              <label>
+                <span class="setting-label"><b>1</b> Sozialform</span>
+                <select id="social-input">
+                  <option>Einzelarbeit</option>
+                  <option>Partnerarbeit</option>
+                  <option selected>Gruppenarbeit</option>
+                  <option>Freiarbeit / SOL</option>
+                  <option>Plenum</option>
+                </select>
+              </label>
+              <fieldset class="group-size-setting" id="group-size-setting">
+                <legend>Gruppengröße</legend>
+                <div class="group-size-options" id="group-size-options">
+                  <button type="button" data-group-size="3">3</button>
+                  <button type="button" data-group-size="4" class="selected">4</button>
+                  <button type="button" data-group-size="5">5</button>
+                  <button type="button" data-group-size="6">6</button>
+                </div>
+                <span>maximal 6 Personen</span>
+              </fieldset>
+            </div>
 
             <fieldset class="setting-section" data-setting="2">
               <legend><b>2</b> Lautstärke</legend>
@@ -153,7 +189,7 @@
           </div>
 
           <div class="panel-footer">
-            <p>Die Angaben bleiben ausschließlich in diesem Browser gespeichert.</p>
+            <p>Phasen und Timer bleiben ausschließlich in diesem Browser gespeichert.</p>
             <button class="apply-button" id="settings-apply" type="button">Anzeige übernehmen</button>
           </div>
         </section>

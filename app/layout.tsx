@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,6 +16,21 @@ export const metadata: Metadata = {
   title: "Phasenklar – Arbeitsphasen eindeutig anzeigen",
   description:
     "Projektionsfreundliche Anzeige für Sozialform, Lautstärke, Zeit, Ergebnis und den nächsten Schritt.",
+  applicationName: "Phasenklar",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/icon-192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Phasenklar",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f4f1e8",
 };
 
 export default function RootLayout({

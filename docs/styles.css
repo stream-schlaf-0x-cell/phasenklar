@@ -151,6 +151,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 }
 
 .volume-card { background: #153e35; color: white; border-color: transparent; }
+.volume-card-button { width: auto; appearance: none; text-align: left; cursor: pointer; }
+.volume-card-button:hover { box-shadow: 0 16px 44px rgba(21, 62, 53, .2); }
+.volume-card-button:focus-visible { outline-color: white; outline-offset: -7px; }
 .volume-card .card-heading { color: rgba(255,255,255,.7); }
 .volume-card .card-number { background: white; color: var(--green-dark); }
 .volume-card .card-content { flex-direction: row; align-items: center; justify-content: flex-start; gap: clamp(16px, 2vw, 30px); }
@@ -202,6 +205,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .timer-finished { background: #fff1ec; border-color: rgba(227, 105, 75, .45); }
 .timer-finished .timer-display, .timer-finished .timer-status { color: #b33e24; }
 .timer-finished .timer-progress span { background: var(--coral); }
+.timer-warning:not(.timer-finished) { background: #fff8de; border-color: rgba(190, 133, 10, .46); }
+.timer-warning:not(.timer-finished) .timer-display, .timer-warning:not(.timer-finished) .timer-status { color: #8a5b00; }
+.timer-warning:not(.timer-finished) .timer-progress span { background: #d99d22; }
 
 .result-card { background: #f1e4b8; }
 .next-card { background: #dfe9f0; }
@@ -240,6 +246,19 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .attention-overlay > p:not(.attention-eyebrow) { margin: 12px 0; color: var(--green-dark); font-size: clamp(25px, 3vw, 50px); }
 .attention-hint { position: absolute; bottom: 26px; color: var(--muted); font-size: 13px; }
 
+.volume-guide-overlay { position: fixed; inset: 0; z-index: 45; display: grid; place-items: center; padding: 22px; background: rgba(15, 34, 30, .68); backdrop-filter: blur(6px); }
+.volume-guide-panel { position: relative; width: min(900px, 100%); max-height: calc(100dvh - 44px); overflow: auto; padding: clamp(24px, 3vw, 42px); border-radius: 28px; background: #fbfaf5; box-shadow: 0 30px 90px rgba(0,0,0,.3); }
+.guide-close { position: absolute; top: 17px; right: 22px; border: 0; background: transparent; font-size: 36px; cursor: pointer; }
+.volume-guide-panel > h1 { margin: 0; font-size: clamp(32px, 4vw, 54px); letter-spacing: -.045em; }
+.volume-guide-intro { margin: 8px 0 22px; color: var(--muted); font-size: clamp(16px, 1.5vw, 21px); }
+.volume-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.volume-guide-grid article { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 17px; background: white; }
+.volume-guide-grid article.current { border-color: var(--green); background: var(--mint); box-shadow: inset 0 0 0 1px var(--green); }
+.volume-guide-grid article > span { flex: 0 0 auto; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: var(--green-dark); color: white; font-size: 31px; font-weight: 950; }
+.volume-guide-grid h2 { margin: 0 0 4px; font-size: clamp(19px, 2vw, 25px); }
+.volume-guide-grid p { margin: 0; color: var(--muted); line-height: 1.35; }
+.guide-done { display: block; margin: 20px 0 0 auto; border: 0; border-radius: 12px; padding: 11px 20px; background: var(--green); color: white; font-weight: 900; cursor: pointer; }
+
 .panel-backdrop {
   position: fixed;
   inset: 0;
@@ -261,12 +280,23 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .setting-section legend { padding: 0 4px; }
 .setting-section b, .setting-label b { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: 7px; border-radius: 50%; background: var(--ink); color: white; font-size: 12px; }
 .stage-section { grid-column: 1 / -1; }
+.history-section { grid-column: 1 / -1; }
 .setting-help { margin: -2px 0 12px; color: var(--muted); font-size: 14px; line-height: 1.4; }
 .stage-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .stage-options button, .volume-options button, .minute-presets button { border: 1px solid var(--line); background: #f8f7f2; border-radius: 11px; cursor: pointer; }
 .stage-options button { display: flex; flex-direction: column; align-items: flex-start; padding: 11px; text-align: left; }
 .stage-options button span { margin-top: 4px; color: var(--muted); font-size: 12px; }
 .stage-options button.selected, .volume-options button.selected, .minute-presets button.selected { border-color: var(--green); background: var(--mint); box-shadow: inset 0 0 0 1px var(--green); }
+.history-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+.history-heading h2 { margin: 0; font-size: 16px; }
+.history-heading > span { color: var(--muted); font-size: 12px; }
+.history-options { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.history-options button { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 11px; border: 1px solid var(--line); border-radius: 11px; background: #f8f7f2; text-align: left; cursor: pointer; }
+.history-options button:hover { border-color: var(--green); background: #f1f7f3; }
+.history-options strong, .history-options span, .history-options small { width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.history-options strong { font-size: 13px; }
+.history-options span { color: var(--muted); font-size: 11px; }
+.history-options small { color: #716b5d; font-size: 11px; }
 .setting-section select, .setting-section textarea, .setting-section input { width: 100%; border: 1px solid #c9c7bf; background: #fbfaf6; border-radius: 10px; padding: 11px 12px; color: var(--ink); }
 .setting-section select { min-height: 45px; font-weight: 750; }
 .setting-section textarea { resize: vertical; line-height: 1.4; }
@@ -276,6 +306,13 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .volume-options button { display: flex; flex-direction: column; align-items: center; padding: 8px 4px; }
 .volume-options button span { font-size: 23px; font-weight: 950; }
 .volume-options button strong { font-size: 11px; }
+.social-setting > label { display: block; }
+.group-size-setting { margin: 15px 0 0; padding: 13px 0 0; border: 0; border-top: 1px solid var(--line); }
+.group-size-setting legend { margin: 0 0 8px; padding: 0; font-size: 13px; }
+.group-size-setting > span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
+.group-size-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.group-size-options button { min-height: 38px; border: 1px solid var(--line); border-radius: 10px; background: #f8f7f2; font-weight: 900; cursor: pointer; }
+.group-size-options button.selected { border-color: var(--green); background: var(--mint); box-shadow: inset 0 0 0 1px var(--green); }
 .minute-presets { display: flex; flex-wrap: wrap; gap: 6px; }
 .minute-presets button { padding: 7px 10px; font-size: 13px; font-weight: 800; }
 .custom-minutes { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: 13px; }
@@ -304,7 +341,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   .phase-card { border-radius: 21px; }
   .settings-grid { grid-template-columns: 1fr; padding: 16px; }
   .stage-section { grid-column: 1; }
+  .history-section { grid-column: 1; }
   .stage-options { grid-template-columns: repeat(2, 1fr); }
+  .history-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .volume-guide-grid { grid-template-columns: 1fr; }
   .panel-header, .panel-footer { padding-left: 18px; padding-right: 18px; }
   .panel-footer { align-items: stretch; flex-direction: column; }
   .panel-footer p { display: none; }
